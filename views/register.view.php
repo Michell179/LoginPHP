@@ -36,6 +36,9 @@
             <div class="register-send">
                 <input type="submit" value="Enviar">
             </div>
+            
+            <?php if(!empty($error)){echo $error;}?>
+
         </form>
 
         <a href="login.php">Ya tienes cuenta?</a>

@@ -10,7 +10,6 @@ class User
     public string $name;
     public string $email;
     public string $password;
-    public string $confirmPassword;
 
     // public function __construct(
     //     // string $name, 
@@ -26,9 +25,8 @@ class User
 
     public function setName(string $name)
     {
-        if ($name === null) {
+        if ($name === NULL) {
             throw new Exception('El nombre no puede ser nulo.');
-            // echo "No puede ser nulo";
         }
 
         $this->name = $name;
@@ -46,9 +44,28 @@ class User
         
     }
 
-    public function getName(): string
+    public function setPassword(string $password)
     {
-        return $this->name;
+        $this->password = $password;
+        $password = password_hash($password, PASSWORD_BCRYPT);
+
+        return $password;
     }
+
+    public function validatePass(string $password)
+    {
+        
+        if (strlen($password) >= 8 && preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$#', $password)) {
+
+            $this->password = $password;
+            
+            return true;
+        
+        }else{
+            return false;
+        }
+        
+    }
+
 
 }
